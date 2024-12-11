@@ -57,7 +57,7 @@ window.addEventListener('DOMContentLoaded', function () {
         }
 
         // Calculate total cost
-        const totalCost = (quantity * productPrice) + baseCost + additionalCost;
+        const totalCost = (quantity * baseCost) + (selectedServiceType === '2' ? (quantity * productPrice) : 0) + additionalCost;
         resultParagraph.textContent = `Цена заказа: ₽${totalCost.toFixed(2)}`;
     }
 
