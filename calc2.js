@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded', function () {
     const quantityInput = document.getElementById('quantity');
-    const serviceTypeRadios = document.querySelectorAll('input[name="serviceType"]');
+    const productTypeRadios = document.querySelectorAll('input[name="productType"]');
     const productSelect = document.getElementById('product');
     const propertyCheckbox = document.getElementById('property');
     const calculateButton = document.getElementById('calculate');
@@ -8,27 +8,16 @@ window.addEventListener('DOMContentLoaded', function () {
     const productOptionsDiv = document.getElementById('productOptions');
     const propertyOptionsDiv = document.getElementById('propertyOptions');
 
-    // Define prices for each service type
-    const prices = {
-        type1: 100, // Fixed price per unit for Type 1
-        type2: {
-            product1: 100, // Price for Product 1
-            product2: 200  // Price for Product 2
-        },
-        type3: 250,  // Fixed price per unit for Type 3
-        additionalCost: 50 // Additional cost for Type 3 if checkbox is checked
-    };
-
     function updateOptions() {
-        const selectedServiceType = document.querySelector('input[name="serviceType"]:checked').value;
+        const selectedProductType = document.querySelector('input[name="productType"]:checked').value;
 
-        if (selectedServiceType === '1') {
+        if (selectedProductType === '1') {
             productOptionsDiv.classList.add('hidden');
             propertyOptionsDiv.classList.add('hidden');
-        } else if (selectedServiceType === '2') {
+        } else if (selectedProductType === '2') {
             productOptionsDiv.classList.remove('hidden');
             propertyOptionsDiv.classList.add('hidden');
-        } else if (selectedServiceType === '3') {
+        } else if (selectedProductType === '3') {
             productOptionsDiv.classList.add('hidden');
             propertyOptionsDiv.classList.remove('hidden');
         }
@@ -38,40 +27,34 @@ window.addEventListener('DOMContentLoaded', function () {
 
     function calculateTotal() {
         const quantity = parseInt(quantityInput.value);
-        const selectedServiceType = document.querySelector('input[name="serviceType"]:checked').value;
+        const selectedProductType = document.querySelector('input[name="productType"]:checked').value;
         let unitPrice = 0;
-        let additionalCost = 0;
 
-        // Determine unit price based on selected service type
-        if (selectedServiceType === '1') {
-            unitPrice = prices.type1; // Fixed price for Type 1
-        } else if (selectedServiceType === '2') {
-            const selectedProduct = productSelect.value;
-            unitPrice = prices.type2[selectedProduct]; // Price based on selected product
-        } else if (selectedServiceType === '3') {
-            unitPrice = prices.type3; // Fixed price for Type 3
+        // Determine unit price based on selected product type
+        if (selectedProductType === '1') {
+            unitPrice = 100; // Fixed price for Type 1
+        } else if (selectedProductType === '2') {
+            unitPrice = parseInt(productSelect.value); // Price based on selected product
+        } else if (selectedProductType === '3') {
+            unitPrice = 250; // Base price for Type 3
             if (propertyCheckbox.checked) {
-                additionalCost = prices.additionalCost; // Additional cost if checkbox is checked
+                unitPrice += 100; // Additional cost if checkbox is checked
             }
         }
 
         if (isNaN(quantity) || quantity <= 0) {
-            displayError('Введите корректное количество');
+            resultParagraph.textContent = 'Ошибка: Введите корректное количество';
             return;
         }
 
         // Calculate total cost
-        const totalCost = (quantity * unitPrice) + (propertyCheckbox.checked ? (quantity * prices.additionalCost) : 0);
+        const totalCost = quantity * unitPrice;
         resultParagraph.textContent = `Цена заказа: ₽${totalCost.toFixed(2)}`;
-    }
-
-    function displayError(message) {
-        resultParagraph.textContent = `Ошибка: ${message}`;
     }
 
     // Event listeners
     quantityInput.addEventListener('input', calculateTotal);
-    serviceTypeRadios.forEach(radio => {
+    productTypeRadios.forEach(radio => {
         radio.addEventListener('change', () => {
             updateOptions();
             calculateTotal();
@@ -81,6 +64,6 @@ window.addEventListener('DOMContentLoaded', function () {
     propertyCheckbox.addEventListener('change', calculateTotal);
     calculateButton.addEventListener('click', calculateTotal);
 
-    // Initialize the options based on the default selected service type
+    // Initialize the options based on the default selected product type
     updateOptions();
 });
