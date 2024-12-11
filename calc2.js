@@ -8,11 +8,14 @@ window.addEventListener('DOMContentLoaded', function () {
     const productOptionsDiv = document.getElementById('productOptions');
     const propertyOptionsDiv = document.getElementById('propertyOptions');
 
-    // Define base costs for each service type
-    const baseCosts = {
-        type1: 100, // Base cost for Type 1
-        type2: 0,   // No base cost for Type 2, only product price
-        type3: 150  // Base cost for Type 3
+    // Define prices for each service type
+    const prices = {
+        type1: 100, // Fixed price per unit for Type 1
+        type2: {
+            product1: 150, // Price for Product 1
+            product2: 200  // Price for Product 2
+        },
+        type3: 250  // Fixed price per unit for Type 3
     };
 
     function updateOptions() {
@@ -35,19 +38,19 @@ window.addEventListener('DOMContentLoaded', function () {
     function calculateTotal() {
         const quantity = parseInt(quantityInput.value);
         const selectedServiceType = document.querySelector('input[name="serviceType"]:checked').value;
-        let productPrice = 0;
+        let unitPrice = 0;
         let additionalCost = 0;
-        let baseCost = 0;
 
-        // Determine base cost based on selected service type
+        // Determine unit price based on selected service type
         if (selectedServiceType === '1') {
-            baseCost = baseCosts.type1;
+            unitPrice = prices.type1; // Fixed price for Type 1
         } else if (selectedServiceType === '2') {
-            productPrice = parseFloat(productSelect.value);
+            const selectedProduct = productSelect.value;
+            unitPrice = prices.type2[selectedProduct]; // Price based on selected product
         } else if (selectedServiceType === '3') {
-            baseCost = baseCosts.type3;
+            unitPrice = prices.type3; // Fixed price for Type 3
             if (propertyCheckbox.checked) {
-                additionalCost = 50; // Example additional cost for property
+                additionalCost = 50; // Additional cost if checkbox is checked
             }
         }
 
@@ -57,7 +60,7 @@ window.addEventListener('DOMContentLoaded', function () {
         }
 
         // Calculate total cost
-        const totalCost = (quantity * baseCost) + (selectedServiceType === '2' ? (quantity * productPrice) : 0) + additionalCost;
+        const totalCost = (quantity * unitPrice) + additionalCost;
         resultParagraph.textContent = `Цена заказа: ₽${totalCost.toFixed(2)}`;
     }
 
