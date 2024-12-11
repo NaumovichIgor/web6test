@@ -22,7 +22,7 @@ window.addEventListener('DOMContentLoaded', function () {
             propertyOptionsDiv.classList.remove('hidden');
         }
         
-        calculateTotal(); // Recalculate on change
+        calculateTotal();
     }
 
     function calculateTotal() {
@@ -30,15 +30,14 @@ window.addEventListener('DOMContentLoaded', function () {
         const selectedProductType = document.querySelector('input[name="productType"]:checked').value;
         let unitPrice = 0;
 
-        // Determine unit price based on selected product type
         if (selectedProductType === '1') {
-            unitPrice = 100; // Fixed price for Type 1
+            unitPrice = 100;
         } else if (selectedProductType === '2') {
-            unitPrice = parseFloat(productSelect.value); // Price based on selected product
+            unitPrice = parseInt(productSelect.value); 
         } else if (selectedProductType === '3') {
-            unitPrice = 250; // Base price for Type 3
+            unitPrice = 250;
             if (propertyCheckbox.checked) {
-                unitPrice += 100; // Additional cost if checkbox is checked
+                unitPrice += 100;
             }
         }
 
@@ -47,12 +46,10 @@ window.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Calculate total cost
         const totalCost = quantity * unitPrice;
         resultParagraph.textContent = `Цена заказа: ₽${totalCost.toFixed(2)}`;
     }
 
-    // Event listeners
     quantityInput.addEventListener('input', calculateTotal);
     productTypeRadios.forEach(radio => {
         radio.addEventListener('change', () => {
@@ -64,6 +61,5 @@ window.addEventListener('DOMContentLoaded', function () {
     propertyCheckbox.addEventListener('change', calculateTotal);
     calculateButton.addEventListener('click', calculateTotal);
 
-    // Initialize the options based on the default selected product type
     updateOptions();
 });
