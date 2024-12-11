@@ -8,6 +8,13 @@ window.addEventListener('DOMContentLoaded', function () {
     const productOptionsDiv = document.getElementById('productOptions');
     const propertyOptionsDiv = document.getElementById('propertyOptions');
 
+    // Define base costs for each service type
+    const baseCosts = {
+        type1: 100, // Base cost for Type 1
+        type2: 0,   // No base cost for Type 2, only product price
+        type3: 150  // Base cost for Type 3
+    };
+
     function updateOptions() {
         const selectedServiceType = document.querySelector('input[name="serviceType"]:checked').value;
 
@@ -30,11 +37,18 @@ window.addEventListener('DOMContentLoaded', function () {
         const selectedServiceType = document.querySelector('input[name="serviceType"]:checked').value;
         let productPrice = 0;
         let additionalCost = 0;
+        let baseCost = 0;
 
-        if (selectedServiceType === '2') {
+        // Determine base cost based on selected service type
+        if (selectedServiceType === '1') {
+            baseCost = baseCosts.type1;
+        } else if (selectedServiceType === '2') {
             productPrice = parseFloat(productSelect.value);
-        } else if (selectedServiceType === '3' && propertyCheckbox.checked) {
-            additionalCost = 50; // Example additional cost for property
+        } else if (selectedServiceType === '3') {
+            baseCost = baseCosts.type3;
+            if (propertyCheckbox.checked) {
+                additionalCost = 50; // Example additional cost for property
+            }
         }
 
         if (isNaN(quantity) || quantity <= 0) {
@@ -42,7 +56,8 @@ window.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const totalCost = (quantity * productPrice) + additionalCost;
+        // Calculate total cost
+        const totalCost = (quantity * productPrice) + baseCost + additionalCost;
         resultParagraph.textContent = `Цена заказа: ₽${totalCost.toFixed(2)}`;
     }
 
