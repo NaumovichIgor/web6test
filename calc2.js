@@ -15,7 +15,8 @@ window.addEventListener('DOMContentLoaded', function () {
             product1: 100, // Price for Product 1
             product2: 200  // Price for Product 2
         },
-        type3: 250  // Fixed price per unit for Type 3
+        type3: 250,  // Fixed price per unit for Type 3
+        additionalCost: 50 // Additional cost for Type 3 if checkbox is checked
     };
 
     function updateOptions() {
@@ -50,7 +51,7 @@ window.addEventListener('DOMContentLoaded', function () {
         } else if (selectedServiceType === '3') {
             unitPrice = prices.type3; // Fixed price for Type 3
             if (propertyCheckbox.checked) {
-                additionalCost = 50; // Additional cost if checkbox is checked
+                additionalCost = prices.additionalCost; // Additional cost if checkbox is checked
             }
         }
 
@@ -60,7 +61,7 @@ window.addEventListener('DOMContentLoaded', function () {
         }
 
         // Calculate total cost
-        const totalCost = (quantity * unitPrice) + additionalCost;
+        const totalCost = (quantity * unitPrice) + (propertyCheckbox.checked ? (quantity * prices.additionalCost) : 0);
         resultParagraph.textContent = `Цена заказа: ₽${totalCost.toFixed(2)}`;
     }
 
