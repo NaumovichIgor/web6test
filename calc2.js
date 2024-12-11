@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded', function () {
     const quantityInput = document.getElementById('quantity');
-    const productTypeRadios = document.querySelectorAll('input[name="productType"]');
+    const serviceTypeRadios = document.querySelectorAll('input[name="serviceType"]');
     const productSelect = document.getElementById('product');
     const propertyCheckbox = document.getElementById('property');
     const calculateButton = document.getElementById('calculate');
@@ -9,15 +9,15 @@ window.addEventListener('DOMContentLoaded', function () {
     const propertyOptionsDiv = document.getElementById('propertyOptions');
 
     function updateOptions() {
-        const selectedProductType = document.querySelector('input[name="productType"]:checked').value;
+        const selectedServiceType = document.querySelector('input[name="serviceType"]:checked').value;
 
-        if (selectedProductType === '1') {
+        if (selectedServiceType === '1') {
             productOptionsDiv.classList.add('hidden');
             propertyOptionsDiv.classList.add('hidden');
-        } else if (selectedProductType === '2') {
+        } else if (selectedServiceType === '2') {
             productOptionsDiv.classList.remove('hidden');
             propertyOptionsDiv.classList.add('hidden');
-        } else if (selectedProductType === '3') {
+        } else if (selectedServiceType === '3') {
             productOptionsDiv.classList.add('hidden');
             propertyOptionsDiv.classList.remove('hidden');
         }
@@ -27,31 +27,31 @@ window.addEventListener('DOMContentLoaded', function () {
 
     function calculateTotal() {
         const quantity = parseInt(quantityInput.value);
-        const selectedProductType = document.querySelector('input[name="productType"]:checked').value;
-        let unitPrice = 0;
+        const selectedServiceType = document.querySelector('input[name="serviceType"]:checked').value;
+        let productPrice = 0;
+        let additionalCost = 0;
 
-        if (selectedProductType === '1') {
-            unitPrice = 100;
-        } else if (selectedProductType === '2') {
-            unitPrice = parseInt(productSelect.value); 
-        } else if (selectedProductType === '3') {
-            unitPrice = 250;
-            if (propertyCheckbox.checked) {
-                unitPrice += 100;
-            }
+        if (selectedServiceType === '2') {
+            productPrice = parseFloat(productSelect.value);
+        } else if (selectedServiceType === '3' && propertyCheckbox.checked) {
+            additionalCost = 50;
         }
 
         if (isNaN(quantity) || quantity <= 0) {
-            resultParagraph.textContent = 'Ошибка: Введите корректное количество';
+            displayError('Введите корректное количество');
             return;
         }
 
-        const totalCost = quantity * unitPrice;
+        const totalCost = (quantity * productPrice) + additionalCost;
         resultParagraph.textContent = `Цена заказа: ₽${totalCost.toFixed(2)}`;
     }
 
+    function displayError(message) {
+        resultParagraph.textContent = `Ошибка: ${message}`;
+    }
+
     quantityInput.addEventListener('input', calculateTotal);
-    productTypeRadios.forEach(radio => {
+    serviceTypeRadios.forEach(radio => {
         radio.addEventListener('change', () => {
             updateOptions();
             calculateTotal();
