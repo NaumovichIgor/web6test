@@ -12,30 +12,30 @@
 <div>
     <h1>Калькулятор стоимости заказа</h1>
     
-    <label for="quantity">Количество:</label>
-    <input type="number" id="quantity" min="1">
-    <br><br>
+   <label for="quantity">Количество:</label>
+<input type="number" id="quantity" min="1">
+<br><br>
 
-    <label>Тип услуги:</label>
-    <label><input type="radio" name="serviceType" value="1" checked> Тип 1 (без дополнительных опций)</label>
-    <label><input type="radio" name="serviceType" value="2"> Тип 2 (с выбором товара)</label>
-    <label><input type="radio" name="serviceType" value="3"> Тип 3 (с выбором свойства)</label>
-    <br><br>
+<label>Тип услуги:</label>
+<label><input type="radio" name="serviceType" value="1" checked> Тип 1 (без дополнительных опций)</label>
+<label><input type="radio" name="serviceType" value="2"> Тип 2 (с выбором товара)</label>
+<label><input type="radio" name="serviceType" value="3"> Тип 3 (с выбором свойства)</label>
+<br><br>
 
-    <div id="productOptions" class="hidden">
-        <label for="product">Товар:</label>
-        <select id="product">
-            <option value="100">Товар 1 (₽100)</option>
-            <option value="200">Товар 2 (₽200)</option>
-        </select>
-    </div>
+<div id="productOptions" class="hidden">
+    <label for="product">Товар:</label>
+    <select id="product">
+        <option value="100">Товар 1 (₽100)</option>
+        <option value="200">Товар 2 (₽200)</option>
+    </select>
+</div>
 
-    <div id="propertyOptions" class="hidden">
-        <label><input type="checkbox" id="property"> Дополнительное свойство</label>
-    </div>
+<div id="propertyOptions" class="hidden">
+    <label><input type="checkbox" id="property"> Дополнительное свойство</label>
+</div>
 
-    <button id="calculate">Посчитать цену</button>
-    <p id="result"></p>
+<button id="calculate">Посчитать цену</button>
+<p id="result"></p>
 </div>
 </body>
 </html>
