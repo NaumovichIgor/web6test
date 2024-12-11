@@ -46,7 +46,7 @@ window.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const totalCost = (quantity * productPrice) + additionalCost;
+        const totalCost = (quantity * productPrice);
         resultParagraph.textContent = `Цена заказа: ₽${totalCost.toFixed(2)}`;
     }
 
