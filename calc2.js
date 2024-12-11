@@ -29,12 +29,16 @@ window.addEventListener('DOMContentLoaded', function () {
         const quantity = parseInt(quantityInput.value);
         const selectedServiceType = document.querySelector('input[name="serviceType"]:checked').value;
         let productPrice = 0;
-        let additionalCost = 0;
 
-        if (selectedServiceType === '2') {
-            productPrice = parseFloat(productSelect.value);
+        if(selectedServiceType==='1'){
+            productPrice=100;}
+        else if(selectedServiceType === '2') {
+            productPrice = parseInt(productSelect.value);
         } else if (selectedServiceType === '3' && propertyCheckbox.checked) {
-            additionalCost = 50;
+            productPrice=350;
+        }
+        else if(selectedServiceType==='3'&&propertCheckbox.unchecked){
+            productPrice=250;
         }
 
         if (isNaN(quantity) || quantity <= 0) {
