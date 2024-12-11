@@ -34,7 +34,7 @@ window.addEventListener('DOMContentLoaded', function () {
         if (selectedProductType === '1') {
             unitPrice = 100; // Fixed price for Type 1
         } else if (selectedProductType === '2') {
-            unitPrice = parseInt(productSelect.value); // Price based on selected product
+            unitPrice = parseFloat(productSelect.value); // Price based on selected product
         } else if (selectedProductType === '3') {
             unitPrice = 250; // Base price for Type 3
             if (propertyCheckbox.checked) {
