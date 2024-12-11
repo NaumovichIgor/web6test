@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', function () {
     const prices = {
         type1: 100, // Fixed price per unit for Type 1
         type2: {
-            product1: 150, // Price for Product 1
+            product1: 100, // Price for Product 1
             product2: 200  // Price for Product 2
         },
         type3: 250  // Fixed price per unit for Type 3
