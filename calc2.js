@@ -3,7 +3,6 @@ window.addEventListener('DOMContentLoaded', function () {
     const serviceTypeRadios = document.querySelectorAll('input[name="serviceType"]');
     const productSelect = document.getElementById('product');
     const propertyCheckbox = document.getElementById('property');
-    const calculateButton = document.getElementById('calculate');
     const resultParagraph = document.getElementById('result');
     const productOptionsDiv = document.getElementById('productOptions');
     const propertyOptionsDiv = document.getElementById('propertyOptions');
@@ -63,7 +62,6 @@ window.addEventListener('DOMContentLoaded', function () {
     });
     productSelect.addEventListener('change', calculateTotal);
     propertyCheckbox.addEventListener('change', calculateTotal);
-    calculateButton.addEventListener('click', calculateTotal);
 
     updateOptions();
 });
